@@ -51,7 +51,7 @@
   const url = 'https://api.uktradeinfo.com/Commodity?$filter=CommodityId eq 0';
 
   // Get data from API using Fetch
-  fetch(url)
+  fetch(url, {mode: 'no-cors'})
   //.then((resp) => resp.json())  // Converts response into JSON
   .then(function(data) {
   	console.log(data);
