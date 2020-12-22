@@ -1,17 +1,77 @@
-<html>
+<html lang="en">
 <head>
+ <title>HMRC OTS API</title>	
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
  <style></style>
 </head>
 
 <body>
-  <div class="wrapper">
-    <header class="main-header">
-    </header>
-  </div>
+  <header>HMRC OTS API</header>
+  
+  <main>
+    <label for="cars">Choose a car:</label>
+    <select id="cars" name="cars">
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="fiat">Fiat</option>
+      <option value="audi">Audi</option>
+    </select>
+    <br>
+    <label for="abc">Choose xxxxx:</label>
+    <select id="abc" name="abc">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+    <br>
+    <button type="button" onclick="alert('Hello World!')">Go</button>
+    <br>
+    <ul id="authors"></ul>
+  </main>
+  
+  <script>
+
+  //
+  function createNode(element) {
+      return document.createElement(element);
+  }
+
+  //
+  function append(parent, el) {
+    return parent.appendChild(el);
+  }
+
+  const ul = document.getElementById('authors');
+  //const url = 'https://randomuser.me/api/?results=10';
+  const url = 'https://api.uktradeinfo.com/Commodity?$filter=CommodityId eq 0';
+
+  // Get data from API using Fetch
+  fetch(url, {mode: 'cors', headers: {'Content-Type': 'application/json' }})
+  //.then((resp) => resp.json())  // Converts response into JSON
+  .then(function(data) {
+  	console.log(data);
+    let authors = data.results;
+    return authors.map(function(author) {
+      let li = createNode('li');
+      let img = createNode('img');
+      let span = createNode('span');
+      img.src = author.picture.medium;
+      span.innerHTML = `${author.name.first} ${author.name.last}`;
+      append(li, img);
+      append(li, span);
+      append(ul, li);
+    })
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+  </script>
 
 </body>
 </html>
-© 2020 GitHub, Inc.
